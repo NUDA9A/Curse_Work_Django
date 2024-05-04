@@ -1,0 +1,41 @@
+{% extends 'main/base.html' %}
+{% load filters %}
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Наш и Ваш Блог</h1>
+</div>
+<div class="col-12 mb-5">
+    <a class="btn btn-outline-primary" href="{% url 'blogs:blog_create' %}">Написать статью</a>
+</div>
+<div class="row text-center">
+    {% for object in object_list %}
+    {% if object.is_published or perms.main.set_active %}
+        <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+                <img src="{{object.image|my_media}}"
+                     width="350"
+                     height="350">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{object.title}}</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                        <li>Просмотры: {{object.view_count}}</li>
+                        {% if perms.main.set_active %}
+                        <li>
+                            Статус публикации: {% if object.is_published %} Опубликовано {% else %} Ожидает модерации {% endif %}
+                        </li>
+                        {% endif %}
+                    </ul>
+                    <a href="{% url 'blogs:blog_detail' object.pk %}" class="btn btn-lg btn-block btn-outline-primary">Почитать</a>
+                    {% if perms.main.set_active or object.owner == user %}
+                    <a href="{% url 'blogs:blog_update' object.pk %}" class="btn btn-lg btn-block btn-primary">Изменить</a>
+                    <a href="{% url 'blogs:blog_delete' object.pk %}" class="btn btn-lg btn-block btn-danger">Удалить</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

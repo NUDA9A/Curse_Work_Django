@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<div class="col-12 mb-5">
+    <a class="btn btn-outline-primary" href="{% url 'main:mailing_create' %}">Добавить Рассылку</a>
+</div>
+<div class="row text-center">
+    {% for object in object_list %}
+    {% if object.owner == user or perms.main.set_active %}
+        <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{object.name}}</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                        <li>Сообщение: {{ object.message }}</li>
+                        <li>Периодичность: {{ object.period }}</li>
+                        <li>Статус: {{ object.status }}</li>
+                        <li>
+                            Статус модерации: {% if object.is_active %} Активно {% else %} Ожидает модерации {% endif %}
+                        </li>
+                    </ul>
+                    <a href="{% url 'main:mailing_detail' object.pk %}" class="btn btn-lg btn-block btn-outline-primary">Посмотреть</a>
+                    <a href="{% url 'main:mailing_update' object.pk %}" class="btn btn-lg btn-block btn-primary">Изменить</a>
+                    <a href="{% url 'main:mailing_delete' object.pk %}" class="btn btn-lg btn-block btn-danger">Удалить</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+  <div class="col-12">
+    <div class="row">
+      <div class="card">
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            <p>Хотите удалить Сообщение "{{object.header}}"?</p>
+            <button type="submit" class="btn btn-danger">Удалить</button>
+            <a href="{% url 'main:messages' %}" class="btn btn-outline-primary">Отмена</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

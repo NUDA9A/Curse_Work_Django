@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+{% load filters %}
+{% block content %}
+<div class="row text-center">
+    <div class="col-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Количество рассылок:</h5>
+            </div>
+            <div class="card-body">{{ mailings_ammount }}</div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Количество активных рассылок:</h5>
+            </div>
+            <div class="card-body">{{ active_mailings_ammount }}</div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Количество клиентов:</h5>
+            </div>
+            <div class="card-body">{{ clients_ammount }}</div>
+        </div>
+    </div>
+</div>
+<div class="row text-center">
+    {% for blog in blog_list %}
+        <div class="col-md-4">
+            <img src="{{blog.image|my_media}}"
+                     width="350"
+                     height="350">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">{{blog.title}}</div>
+            </div>
+            <a href="{% url 'blogs:blog_detail' blog.pk %}" class="btn btn-lg btn-block btn-outline-primary">Почитать</a>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">{{object.full_name}}</h1>
+</div>
+<div class="row text-start">
+    <div class="col-lg-12 col-md-6 col-sm-12">
+        <div class="card mb-4 box-shadow">
+            <div class="card-body">
+                <table class="table table-striped">
+                    <tr>
+                        <td class="w-25">Email</td>
+                        <td>{{object.email}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">Комментарий</div>
+            {% if object.comment %}
+            <div class="card-body">{{object.comment}}</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
